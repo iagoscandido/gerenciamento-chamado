@@ -1,0 +1,59 @@
+{% extends "layout.html" %} {% block title %} Sistema de Chamados {% endblock %}
+{% block content %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Sistema de Chamados</h1>
+
+        <p class="lead text-body-secondary mt-3">
+          Registro e consulta de atendimentos técnicos.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Novo chamado -->
+
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body p-4">
+              <h2 class="h4 card-title">Novo chamado</h2>
+
+              <p class="card-text text-body-secondary">
+                Registre um atendimento técnico, informando cliente, período,
+                valores e detalhes do serviço realizado.
+              </p>
+
+              <a href="/chamados/novo" class="btn btn-primary">
+                Registrar chamado
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consultar chamados -->
+
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body p-4">
+              <h2 class="h4 card-title">Consultar chamados</h2>
+
+              <p class="card-text text-body-secondary">
+                Consulte os atendimentos registrados e encontre chamados por
+                cliente, período ou outras informações.
+              </p>
+
+              <a href="/chamados" class="btn btn-outline-primary">
+                Consultar chamados
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  ```
+</div>
+
+{% endblock %}

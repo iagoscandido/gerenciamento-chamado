@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/static/htmx-4.0.0/htmx.min.js"></script>
+    <link
+      href="{{ url_for('static', path='bootstrap-5.0.2/css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <script src="/static/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
+
+    <title>{% block title %}Sistema de Chamados{% endblock %}</title>
+  </head>
+  <body hx-boost="true">
+    {% block content %} {% endblock %}
+  </body>
+</html>
