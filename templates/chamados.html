@@ -51,15 +51,11 @@ content %}
             >
               Ver
             </a>
-            <a
-              hx-get="/chamados/{{ chamado['id'] }}"
-              class="btn btn-sm btn-outline-primary"
-            >
+            <a href="/chamados/{{chamado['id']}}" class="btn btn-primary">
               Editar
             </a>
           </td>
         </tr>
-
         {% endfor %}
       </tbody>
     </table>

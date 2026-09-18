@@ -25,6 +25,7 @@ block content %}
                 class="form-control"
                 id="data_atendimento"
                 name="data_atendimento"
+                value="{{ chamado.data_atendimento or '' }}"
                 required
               />
             </div>
@@ -39,6 +40,7 @@ block content %}
                 class="form-control"
                 id="hora_inicio"
                 name="hora_inicio"
+                value="{{ chamado.hora_inicio or '' }}"
                 required
               />
             </div>
@@ -51,6 +53,7 @@ block content %}
                 class="form-control"
                 id="hora_fim"
                 name="hora_fim"
+                value="{{ chamado.hora_termino or '' }}"
                 required
               />
             </div>
@@ -71,7 +74,7 @@ block content %}
                 name="valor"
                 min="0"
                 step="0.01"
-                value="0.00"
+                value="{{ chamado.valor or 0.0 }}"
               />
             </div>
 
@@ -85,7 +88,7 @@ block content %}
                 name="despesas"
                 min="0"
                 step="0.01"
-                value="0.00"
+                value="{{ chamado.despesas or 0.0 }}"
               />
             </div>
           </div>
@@ -103,6 +106,7 @@ block content %}
                 class="form-control"
                 id="cliente"
                 name="cliente"
+                value="{{ chamado.cliente or '' }}"
                 required
               />
             </div>
@@ -117,6 +121,7 @@ block content %}
                 class="form-control"
                 id="cliente_final"
                 name="cliente_final"
+                value="{{ chamado.cliente_final or '' }}"
                 required
               />
             </div>
@@ -129,6 +134,7 @@ block content %}
                 class="form-control"
                 id="contato"
                 name="contato"
+                value="{{ chamado.contato or '' }}"
                 required
               />
             </div>
@@ -141,6 +147,7 @@ block content %}
                 class="form-control"
                 id="localidade"
                 name="localidade"
+                value="{{ chamado.localidade or '' }}"
                 required
               />
             </div>
@@ -158,6 +165,7 @@ block content %}
               id="escopo"
               name="escopo"
               rows="4"
+              value="{{ chamado.escopo or '' }}"
               required
             ></textarea>
           </div>
@@ -172,6 +180,7 @@ block content %}
               id="resumo_tecnico"
               name="resumo_tecnico"
               rows="6"
+              value="{{ chamado.resumo_tecnico or '' }}"
               required
             ></textarea>
           </div>
