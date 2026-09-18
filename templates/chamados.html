@@ -1,0 +1,69 @@
+{% extends "layout.html" %} {% block title %} Chamados {% endblock %} {% block
+content %}
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h2 mb-1">Chamados</h1>
+
+      <p class="text-body-secondary mb-0">Atendimentos registrados.</p>
+    </div>
+
+    <a href="/chamados/novo" class="btn btn-primary"> Novo chamado </a>
+  </div>
+
+  {% if chamados %}
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data</th>
+          <th>Cliente</th>
+          <th>Cliente final</th>
+          <th>Localidade</th>
+          <th>Valor</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for chamado in chamados %}
+
+        <tr>
+          <td>{{ chamado["id"] }}</td>
+
+          <td>{{ chamado["data_atendimento"] }}</td>
+
+          <td>{{ chamado["cliente"] }}</td>
+
+          <td>{{ chamado["cliente_final"] }}</td>
+
+          <td>{{ chamado["localidade"] }}</td>
+
+          <td>R$ {{ "%.2f"|format(chamado["valor"]) }}</td>
+
+          <td>
+            <a
+              href="/chamados/{{ chamado['id'] }}"
+              class="btn btn-sm btn-outline-primary"
+            >
+              Ver
+            </a>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+
+  <div class="alert alert-secondary">Nenhum chamado registrado.</div>
+
+  {% endif %}
+</div>
+
+{% endblock %}

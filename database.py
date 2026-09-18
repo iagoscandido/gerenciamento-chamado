@@ -79,9 +79,7 @@ def find_by_id(c_id: str):
         return result
 
 
-def create(
-    c: Chamado
-):
+def create(c: Chamado):
     with get_db() as conn:
         cursor = conn.execute(
             """
@@ -118,10 +116,7 @@ def create(
         return cursor.lastrowid
 
 
-def update(
-    c_id: int,
-    c: Chamado
-):
+def update(c_id: int, c: Chamado):
     with get_db() as conn:
         cursor = conn.execute(
             """
@@ -152,7 +147,7 @@ def update(
                 c.cliente,
                 c.escopo,
                 c.resumo_tecnico,
-                c_id
+                c_id,
             ),
         )
 
