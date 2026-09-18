@@ -24,7 +24,7 @@ content %}
           <th>Cliente final</th>
           <th>Localidade</th>
           <th>Valor</th>
-          <th></th>
+          <th>Ações</th>
         </tr>
       </thead>
 
@@ -50,6 +50,12 @@ content %}
               class="btn btn-sm btn-outline-primary"
             >
               Ver
+            </a>
+            <a
+              hx-get="/chamados/{{ chamado['id'] }}"
+              class="btn btn-sm btn-outline-primary"
+            >
+              Editar
             </a>
           </td>
         </tr>
