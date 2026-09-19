@@ -1,9 +1,9 @@
 import sqlite3
 from contextlib import contextmanager
 
-from models.chamado import Chamado
+from models.chamado import Ticket
 
-DB_NAME = "chamados.db"
+DB_NAME = "tickets.db"
 
 
 def get_connection():
@@ -30,26 +30,17 @@ def get_db():
 def init_db():
     """Cria a tabela de chamados com os campos do escopo."""
     ddl = """
-    CREATE TABLE IF NOT EXISTS chamados (
+    CREATE TABLE IF NOT EXISTS tickets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        data_atendimento DATE NOT NULL,
-        hora_inicio TIME NOT NULL,
-        hora_fim TIME NOT NULL,
+        service_date DATE NOT NULL,
+        start_time TIME NOT NULL,
+        end_time TIME NOT NULL,
 
-        valor REAL NOT NULL DEFAULT 0.0,
-        despesas REAL NOT NULL DEFAULT 0.0,
+        address TEXT NOT NULL,
+        client TEXT NOT NULL,
 
-        localidade TEXT NOT NULL,
-        contato TEXT NOT NULL,
-
-        cliente_final TEXT NOT NULL,
-        cliente TEXT NOT NULL,
-
-        escopo TEXT NOT NULL,
-        resumo_tecnico TEXT NOT NULL,
-
-        criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """
     with get_db() as conn:
@@ -59,109 +50,86 @@ def init_db():
 def find_all():
     with get_db() as conn:
         result = conn.execute("""
-        SELECT * FROM chamados
-        ORDER BY criado_em DESC
+        SELECT * FROM tickets
+        ORDER BY created_at DESC
     """).fetchall()
     return result
 
 
-def find_by_id(c_id: str):
+def find_by_id(t_id: str):
     with get_db() as conn:
         result = conn.execute(
             """
             SELECT *
-            FROM chamados
+            FROM tickets
             WHERE id = ?
             """,
-            (c_id,),
+            (t_id,),
         ).fetchone()
 
         return result
 
 
-def create(c: Chamado):
+def create(ticket: Ticket):
+
     with get_db() as conn:
         cursor = conn.execute(
             """
-            INSERT INTO chamados (
-                data_atendimento,
-                hora_inicio,
-                hora_fim,
-                valor,
-                despesas,
-                localidade,
-                contato,
-                cliente_final,
-                cliente,
-                escopo,
-                resumo_tecnico
+            INSERT INTO tickets (
+                service_date,
+                start_time,
+                end_time,
+                address,
+                client
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
             """,
             (
-                c.data_atendimento,
-                c.hora_inicio,
-                c.hora_fim,
-                c.valor,
-                c.despesas,
-                c.localidade,
-                c.contato,
-                c.cliente_final,
-                c.cliente,
-                c.escopo,
-                c.resumo_tecnico,
+                ticket.service_date,
+                ticket.start_time,
+                ticket.end_time,
+                ticket.address,
+                ticket.client,
             ),
         )
 
         return cursor.lastrowid
 
 
-def update(c_id: int, c: Chamado):
+def update(t_id: int, t: Ticket):
     with get_db() as conn:
         cursor = conn.execute(
             """
-            UPDATE chamados
+            UPDATE tickets
             SET
-                data_atendimento = ?,
-                hora_inicio = ?,
-                hora_fim = ?,
-                valor = ?,
-                despesas = ?,
-                localidade = ?,
-                contato = ?,
-                cliente_final = ?,
-                cliente = ?,
-                escopo = ?,
-                resumo_tecnico = ?
+                service_date = ?,
+                start_time = ?,
+                end_time = ?,
+                client = ?,
+                address = ?
             WHERE id = ?
             """,
             (
-                c.data_atendimento,
-                c.hora_inicio,
-                c.hora_fim,
-                c.valor,
-                c.despesas,
-                c.localidade,
-                c.contato,
-                c.cliente_final,
-                c.cliente,
-                c.escopo,
-                c.resumo_tecnico,
-                c_id,
+                t.service_date,
+                t.start_time,
+                t.end_time,
+                t.client,
+                t.address,
+                t_id,
             ),
         )
 
         return cursor.rowcount
 
 
-def delete(c_id: int):
+def delete(t_id: int):
     with get_db() as conn:
         cursor = conn.execute(
             """
-            DELETE FROM chamados
+            DELETE FROM tickets
             WHERE id = ?
             """,
-            (c_id,),
+            (t_id,),
         )
 
         return cursor.rowcount

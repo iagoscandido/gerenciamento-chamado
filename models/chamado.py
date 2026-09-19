@@ -1,19 +1,11 @@
 from pydantic import BaseModel
 
 
-class Chamado(BaseModel):
-    data_atendimento: str = ""
-    hora_inicio: str = ""
-    hora_fim: str = ""
+class Ticket(BaseModel):
+    service_date: str = ""
+    start_time: str = ""
+    end_time: str = ""
 
-    valor: float = 0.0
-    despesas: float = 0.0
+    client: str = ""
 
-    cliente: str = ""
-    contato: str = ""
-
-    localidade: str = ""
-    cliente_final: str = ""
-
-    escopo: str = ""
-    resumo_tecnico: str = ""
+    address: str = ""

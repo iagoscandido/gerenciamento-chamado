@@ -1,11 +1,9 @@
 from datetime import datetime
 
 
-def get_current_timestamp() -> str:
-    """Returns current timestap"""
+def get_current_datetime() -> tuple[str, str]:
+    """returns a tuple that contains date (%Y-%m-%d) and time (%H:%M)"""
     now = datetime.now()
-    formatted = now.strftime("%Y-%m-%d %H:%M")
-    return formatted
-
-
-print(get_current_timestamp())
+    date = now.strftime("%Y-%m-%d")
+    hour_minute = now.strftime('%H:%M')
+    return date, hour_minute

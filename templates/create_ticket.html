@@ -1,0 +1,107 @@
+{% extends "layout.html" %} {% block title %} Novo chamado {% endblock %} {%
+block content %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="h2 mb-4">Registrar chamado</h1>
+
+      <form
+        action="/tickets"
+        method="post"
+        hx-target="#output"
+        hx-swap="innerHTML"
+      >
+        <fieldset class="mb-4">
+          <legend class="h5">Atendimento</legend>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="service_date" class="form-label"> Data </label>
+
+              <input
+                id="service_date"
+                name="service_date"
+                type="date"
+                class="form-control"
+                value="{{ ticket.service_date }}"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4">
+              <label for="start_time" class="form-label">
+                Hora de início
+              </label>
+
+              <input
+                id="start_time"
+                name="start_time"
+                type="time"
+                class="form-control"
+                value="{{ ticket.start_time }}"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4">
+              <label for="end_time" class="form-label"> Hora de término </label>
+
+              <input
+                type="time"
+                class="form-control"
+                id="hora_fim"
+                name="hora_fim"
+                value="{{ ticket.end_time }}"
+                required
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-4">
+          <legend class="h5">Cliente</legend>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="client" class="form-label"> Cliente </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="client"
+                name="client"
+                value="{{ ticket.client }}"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="address" class="form-label"> Endereço </label>
+
+              <input
+                id="address"
+                name="address"
+                type="text"
+                class="form-control"
+                value="{{ ticket.address }}"
+                required
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="d-flex justify-content-end gap-2">
+          <a href="/tickets" class="btn btn-outline-secondary"> Cancelar </a>
+
+          <button type="submit" class="btn btn-primary">
+            Registrar chamado
+          </button>
+        </div>
+
+        <output id="output" class="mt-3"></output>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

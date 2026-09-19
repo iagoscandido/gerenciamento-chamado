@@ -9,51 +9,38 @@ content %}
       <p class="text-body-secondary mb-0">Atendimentos registrados.</p>
     </div>
 
-    <a href="/chamados/novo" class="btn btn-primary"> Novo chamado </a>
+    <a href="/tickets/create" class="btn btn-primary"> Novo chamado </a>
   </div>
 
-  {% if chamados %}
+  {% if tickets %}
 
   <div class="table-responsive">
     <table class="table table-hover align-middle">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Data</th>
+          <th>Data de Atendimento</th>
           <th>Cliente</th>
-          <th>Cliente final</th>
-          <th>Localidade</th>
-          <th>Valor</th>
+          <th>Endereço</th>
           <th>Ações</th>
         </tr>
       </thead>
 
       <tbody>
-        {% for chamado in chamados %}
-
+        {% for ticket in tickets %}
         <tr>
-          <td>{{ chamado["id"] }}</td>
+          <td>{{ ticket["service_date"] }}</td>
 
-          <td>{{ chamado["data_atendimento"] }}</td>
+          <td>{{ ticket["client"] }}</td>
 
-          <td>{{ chamado["cliente"] }}</td>
-
-          <td>{{ chamado["cliente_final"] }}</td>
-
-          <td>{{ chamado["localidade"] }}</td>
-
-          <td>R$ {{ "%.2f"|format(chamado["valor"]) }}</td>
-
+          <td>{{ ticket["address"] }}</td>
           <td>
-            <a
-              href="/chamados/{{ chamado['id'] }}"
+            <button
+              href="/tickets/{{ ticket['id'] }}"
               class="btn btn-sm btn-outline-primary"
+              disabled
             >
               Ver
-            </a>
-            <a href="/chamados/{{chamado['id']}}" class="btn btn-primary">
-              Editar
-            </a>
+            </button>
           </td>
         </tr>
         {% endfor %}
@@ -62,9 +49,7 @@ content %}
   </div>
 
   {% else %}
-
   <div class="alert alert-secondary">Nenhum chamado registrado.</div>
-
   {% endif %}
 </div>
 
