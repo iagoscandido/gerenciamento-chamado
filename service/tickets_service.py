@@ -1,8 +1,7 @@
 from pydantic import BaseModel
 
 import database as db
-from models.chamado import Ticket
-from utils import get_current_datetime
+from models.ticket_model import Ticket
 
 
 class TicketService(BaseModel):
@@ -11,17 +10,18 @@ class TicketService(BaseModel):
         return db.find_all()
 
     @staticmethod
-    def find_by_id(c_id):
-        return db.find_by_id(c_id)
+    def find_by_id(t_id: int) -> Ticket | None:
+        return db.find_by_id(str(t_id))
 
     @staticmethod
     def create(t: Ticket):
-        date, time = get_current_datetime()
-        t.service_date = date
-        t.start_time = time
 
-        db.create(t)
+        return db.create(t)
 
     @staticmethod
-    def update(c_id: int, c: Ticket):
-        return db.update(c_id, c)
+    def update(t_id: int, t: Ticket):
+        return db.update(t_id, t)
+
+    @staticmethod
+    def find_active():
+        return db.find_active()

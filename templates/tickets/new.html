@@ -1,0 +1,82 @@
+{% extends "layout.html" %} {% block title %} Novo chamado {% endblock %} {%
+block content %}
+
+<section class="container" aria-labelledby="new-ticket-title">
+  <header class="mb-4">
+    <h2 id="new-ticket-title" class="h3">Novo chamado</h2>
+
+    <p class="text-body-secondary mb-0">
+      Informe os dados do cliente para iniciar o atendimento.
+    </p>
+  </header>
+
+  <form hx-action="/tickets" hx-method="POST" class="card shadow-sm">
+    <div class="card-body">
+      <fieldset>
+        <legend class="h5 mb-4">Dados do atendimento</legend>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="service_date" class="form-label"> Data </label>
+
+            <input
+              id="service_date"
+              name="service_date"
+              type="date"
+              value="{{ service_date }}"
+              class="form-control"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="start_time" class="form-label"> Hora de início </label>
+
+            <input
+              id="start_time"
+              name="start_time"
+              type="time"
+              value="{{ start_time }}"
+              class="form-control"
+              readonly
+            />
+          </div>
+
+          <div class="col-12">
+            <label for="client" class="form-label"> Cliente </label>
+
+            <input
+              id="client"
+              name="client"
+              type="text"
+              class="form-control"
+              autocomplete="name"
+              required
+            />
+          </div>
+
+          <div class="col-12">
+            <label for="address" class="form-label"> Endereço </label>
+
+            <input
+              id="address"
+              name="address"
+              type="text"
+              class="form-control"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <footer class="card-footer d-flex justify-content-end gap-2">
+      <a href="/tickets/" class="btn btn-outline-secondary"> Cancelar </a>
+
+      <button type="submit" class="btn btn-primary">Iniciar atendimento</button>
+    </footer>
+  </form>
+</section>
+
+{% endblock %}

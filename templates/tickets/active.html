@@ -1,0 +1,34 @@
+<article id="active-ticket" class="card border-primary shadow-sm">
+  <header class="card-header bg-primary text-white">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="h5 mb-0">Atendimento em andamento</h2>
+      <span class="badge bg-light text-primary"> Em andamento </span>
+    </div>
+  </header>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-4 text-muted">Cliente</dt>
+      <dd class="col-sm-8">{{ ticket.client }}</dd>
+      <dt class="col-sm-4 text-muted">Endereço</dt>
+      <dd class="col-sm-8">{{ ticket.address }}</dd>
+      <dt class="col-sm-4 text-muted">Data</dt>
+      <dd class="col-sm-8">{{ ticket.service_date }}</dd>
+      <dt class="col-sm-4 text-muted">Início</dt>
+      <dd class="col-sm-8">{{ ticket.start_time }}</dd>
+    </dl>
+  </div>
+
+  <footer class="card-footer bg-body">
+    <form
+      hx-action="/tickets/{{ ticket.id }}/finish"
+      hx-method="PATCH"
+      hx-target="#ticket-area"
+      hx-swap="innerHTML"
+    >
+      <button type="submit" class="btn btn-success">
+        Finalizar atendimento
+      </button>
+    </form>
+  </footer>
+</article>

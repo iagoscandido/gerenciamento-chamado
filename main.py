@@ -1,12 +1,12 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 import database
-from controllers.tickets_controller import r as tickets_controller
+from routers.tickets_router import r as tickets_router
 
 
 @asynccontextmanager
@@ -19,7 +19,7 @@ app = FastAPI(title="Sistema de Chamados", lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-app.include_router(router=tickets_controller, prefix="/tickets")
+app.include_router(router=tickets_router, prefix="/tickets")
 
 
 templates = Jinja2Templates(directory="templates")
@@ -27,4 +27,4 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def index():
-    return RedirectResponse("/tickets")
+    return RedirectResponse("/tickets/")

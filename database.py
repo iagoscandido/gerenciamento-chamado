@@ -1,7 +1,7 @@
 import sqlite3
 from contextlib import contextmanager
 
-from models.chamado import Ticket
+from models.ticket_model import Ticket
 
 DB_NAME = "tickets.db"
 
@@ -35,12 +35,13 @@ def init_db():
 
         service_date DATE NOT NULL,
         start_time TIME NOT NULL,
-        end_time TIME NOT NULL,
+        end_time TIME,
 
         address TEXT NOT NULL,
         client TEXT NOT NULL,
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP
     );
     """
     with get_db() as conn:
@@ -56,9 +57,9 @@ def find_all():
     return result
 
 
-def find_by_id(t_id: str):
+def find_by_id(t_id: str) -> Ticket | None:
     with get_db() as conn:
-        result = conn.execute(
+        ticket = conn.execute(
             """
             SELECT *
             FROM tickets
@@ -67,7 +68,14 @@ def find_by_id(t_id: str):
             (t_id,),
         ).fetchone()
 
-        return result
+        return Ticket(
+            id=ticket["id"],
+            service_date=ticket["service_date"],
+            start_time=ticket["start_time"],
+            end_time=ticket["end_time"],
+            address=ticket["address"],
+            client=ticket["client"],
+        )
 
 
 def create(ticket: Ticket):
@@ -106,7 +114,8 @@ def update(t_id: int, t: Ticket):
                 start_time = ?,
                 end_time = ?,
                 client = ?,
-                address = ?
+                address = ?,
+                updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
             """,
             (
@@ -133,3 +142,28 @@ def delete(t_id: int):
         )
 
         return cursor.rowcount
+
+
+def find_active() -> Ticket | None:
+    with get_db() as conn:
+        row = conn.execute(
+            """
+            SELECT *
+            FROM tickets
+            WHERE end_time IS NULL
+            ORDER BY id DESC
+            LIMIT 1
+            """
+        ).fetchone()
+
+        if row is None:
+            return None
+
+        return Ticket(
+            id=row["id"],
+            service_date=row["service_date"],
+            start_time=row["start_time"],
+            end_time=row["end_time"],
+            address=row["address"],
+            client=row["client"],
+        )

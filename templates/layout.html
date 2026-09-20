@@ -6,26 +6,67 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="/static/htmx-4.0.0/htmx.min.js"></script>
+    <meta
+      name="description"
+      content="Sistema de registro e gerenciamento de chamados"
+    />
 
     <link
-      href="{{ url_for('static', path='bootstrap-5.0.2/css/bootstrap.min.css') }}"
+      href="{{ url_for(
+            'static',
+            path='bootstrap-5.0.2/css/bootstrap.min.css'
+        ) }}"
       rel="stylesheet"
     />
 
+    <script src="/static/htmx-4.0.0/htmx.min.js"></script>
+
     <script src="/static/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
 
-    <title>{% block title %} Sistema de Chamados {% endblock %}</title>
+    <title>{% block title %}Sistema de Chamados{% endblock %}</title>
   </head>
 
-  <body hx-boost="true">
-    <header class="container">
-      <h1 class="text-center">Registro e gerenciamento de chamados.</h1>
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a href="/tickets/" class="navbar-brand"> Sistema de Chamados </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#main-navigation"
+            aria-controls="main-navigation"
+            aria-expanded="false"
+            aria-label="Abrir navegação"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div id="main-navigation" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="/tickets/" class="nav-link"> Chamados </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/tickets/new" class="nav-link"> Novo chamado </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
-    <main>{% block content %} {% endblock %}</main>
-    <footer class="container my-5 py-5">
-      <p class="mb-0">&copy; 2026 - Criado por: Iago Silva</p>
+    <main class="flex-grow-1 py-4">{% block content %} {% endblock %}</main>
+
+    <footer class="border-top py-3 mt-auto">
+      <div class="container">
+        <p class="text-center text-body-secondary mb-0">
+          &copy; 2026 - Criado por Iago Silva
+        </p>
+      </div>
     </footer>
   </body>
 </html>

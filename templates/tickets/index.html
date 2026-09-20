@@ -1,0 +1,20 @@
+{% extends "layout.html" %} {% block title %} Chamados {% endblock %} {% block
+content %}
+
+<section
+  id="ticket-area"
+  hx-get="/tickets/current"
+  hx-trigger="load"
+  hx-swap="innerHTML"
+  class="container my-2 py-2"
+></section>
+
+<section
+  id="tickets-list"
+  hx-get="/tickets/all"
+  hx-trigger="load"
+  hx-swap="innerHTML"
+  class="container my-2 py-2"
+></section>
+
+{% endblock %}
