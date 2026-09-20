@@ -15,7 +15,7 @@ templates = Jinja2Templates(directory="templates")
 service = TicketService()
 
 
-@r.get("/")
+@r.get("/", response_class=HTMLResponse)
 def tickets_page(request: Request):
     return templates.TemplateResponse(
         request,
@@ -23,7 +23,7 @@ def tickets_page(request: Request):
     )
 
 
-@r.get("/current")
+@r.get("/current", response_class=HTMLResponse)
 def current_ticket(request: Request):
     ticket = service.find_active()
 
@@ -40,13 +40,15 @@ def current_ticket(request: Request):
     )
 
 
-@r.get("/all")
+@r.get("/all", response_class=HTMLResponse)
 def list_tickets(request: Request):
     tickets = service.find_all()
-    return templates.TemplateResponse(request, "tickets/list.html", {"tickets": tickets})
+    return templates.TemplateResponse(
+        request, "tickets/list.html", {"tickets": tickets}
+    )
 
 
-@r.get("/new")
+@r.get("/new", response_class=HTMLResponse)
 def new_ticket(request: Request):
     active_ticket = service.find_active()
 
@@ -87,8 +89,7 @@ def create_ticket(
     date = now.strftime("%Y-%m-%d")
     time = now.strftime("%H:%M")
 
-    ticket = Ticket(service_date=date, start_time=time,
-                    client=client, address=address)
+    ticket = Ticket(service_date=date, start_time=time, client=client, address=address)
 
     t_id = service.create(ticket)
 
@@ -102,7 +103,27 @@ def create_ticket(
     )
 
 
-@r.patch("/{ticket_id}/finish")
+@r.get("/{ticket_id}/detail", response_class=HTMLResponse)
+def ticket_detail(
+    request: Request,
+    ticket_id: int,
+):
+    ticket = service.find_by_id(ticket_id)
+
+    if ticket is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Chamado não encontrado",
+        )
+
+    return templates.TemplateResponse(
+        request,
+        "tickets/detail.html",
+        {"ticket": ticket},
+    )
+
+
+@r.patch("/{ticket_id}/finish", response_class=HTMLResponse)
 def finish_ticket(
     request: Request,
     ticket_id: int,

@@ -12,14 +12,11 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">Data</th>
-
           <th scope="col">Início</th>
-
           <th scope="col">Fim</th>
-
           <th scope="col">Cliente</th>
-
           <th scope="col">Endereço</th>
+          <th scope="col">Ações</th>
         </tr>
       </thead>
 
@@ -52,6 +49,10 @@
           <td>{{ ticket.client }}</td>
 
           <td>{{ ticket.address }}</td>
+
+          <td>
+            <a href="/tickets/{{ ticket.id }}/detail"> Ver </a>
+          </td>
         </tr>
 
         {% else %}
