@@ -3,14 +3,13 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta
       name="description"
       content="Sistema de registro e gerenciamento de chamados"
     />
-
+    <script src="/static/htmx-4.0.0/htmx.min.js"></script>
+    <script src="/static/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
     <link
       href="{{ url_for(
             'static',
@@ -18,10 +17,6 @@
         ) }}"
       rel="stylesheet"
     />
-
-    <script src="/static/htmx-4.0.0/htmx.min.js"></script>
-
-    <script src="/static/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
 
     <title>{% block title %}Sistema de Chamados{% endblock %}</title>
   </head>
@@ -61,9 +56,9 @@
 
     <main class="flex-grow-1 py-4">{% block content %} {% endblock %}</main>
 
-    <footer class="border-top py-3 mt-auto">
+    <footer class="border-top py-3 mt-auto bg-dark">
       <div class="container">
-        <p class="text-center text-body-secondary mb-0">
+        <p class="text-center text-white mb-0">
           &copy; 2026 - Criado por Iago Silva
         </p>
       </div>

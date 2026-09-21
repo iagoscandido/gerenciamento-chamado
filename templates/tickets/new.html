@@ -1,44 +1,42 @@
-{% extends "layout.html" %} {% block title %} Novo chamado {% endblock %} {%
+{% extends "layout.html" %} {% block title %} Novo ticket {% endblock %} {%
 block content %}
 
-<section class="container" aria-labelledby="new-ticket-title">
+<div class="container">
   <header class="mb-4">
-    <h2 id="new-ticket-title" class="h3">Novo chamado</h2>
-
-    <p class="text-body-secondary mb-0">
-      Informe os dados do cliente para iniciar o ateuvndimento.
-    </p>
+    <h1 class="h2 mb-1">Novo ticket</h1>
+    <p class="text-muted mb-0">Registre um novo atendimento técnico.</p>
   </header>
 
-  <form hx-action="/tickets" hx-method="POST" class="card shadow-sm">
+  <section class="card shadow-sm" aria-labelledby="new-ticket-title">
     <div class="card-body">
-      <fieldset>
-        <legend class="h5 mb-4">Dados do atendimento</legend>
+      <h2 id="new-ticket-title" class="h5 mb-4">Dados do atendimento</h2>
 
+      <form action="/tickets" method="POST">
         <div class="row g-3">
-          <div class="col-md-6">
-            <label for="service_date" class="form-label"> Data </label>
+          <div class="col-12 col-md-6">
+            <label for="service_date" class="form-label">
+              Data de atendimento
+            </label>
 
             <input
               id="service_date"
               name="service_date"
               type="date"
-              value="{{ service_date }}"
               class="form-control"
-              readonly
+              required
             />
           </div>
 
-          <div class="col-md-6">
-            <label for="start_time" class="form-label"> Hora de início </label>
+          <div class="col-12 col-md-6">
+            <label for="contractor" class="form-label"> Contratante </label>
 
             <input
-              id="start_time"
-              name="start_time"
-              type="time"
-              value="{{ start_time }}"
+              id="contractor"
+              name="contractor"
+              type="text"
               class="form-control"
-              readonly
+              autocomplete="organization"
+              required
             />
           </div>
 
@@ -67,16 +65,33 @@ block content %}
               required
             />
           </div>
+
+          <div class="col-12 col-md-6">
+            <label for="value" class="form-label"> Valor </label>
+            <div class="input-group">
+              <span class="input-group-text"> R$ </span>
+              <input
+                id="value"
+                name="value"
+                type="number"
+                class="form-control"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+          </div>
         </div>
-      </fieldset>
+
+        <hr class="my-4" />
+
+        <div class="d-flex flex-column flex-sm-row justify-content-end gap-2">
+          <a href="/tickets/" class="btn btn-outline-secondary"> Cancelar </a>
+          <button type="submit" class="btn btn-primary">Criar ticket</button>
+        </div>
+      </form>
     </div>
-
-    <footer class="card-footer d-flex justify-content-end gap-2">
-      <a href="/tickets/" class="btn btn-outline-secondary"> Cancelar </a>
-
-      <button type="submit" class="btn btn-primary">Iniciar atendimento</button>
-    </footer>
-  </form>
-</section>
+  </section>
+</div>
 
 {% endblock %}
