@@ -24,10 +24,10 @@ content %}
       <div class="col-12 col-md-4">
         <article class="card h-100 shadow-sm">
           <div class="card-body">
-            <h3 class="h6 text-muted">Em aberto</h3>
+            <h3 class="h6 text-muted">Agendado</h3>
 
             <p class="display-6 mb-0">
-              {{ tickets | selectattr("status", "equalto", "open") | list |
+              {{ tickets | selectattr("status", "equalto", "scheduled") | list |
               length }}
             </p>
           </div>
@@ -111,7 +111,7 @@ content %}
               <td>{{ ticket.service_date }}</td>
               <td>{{ ticket.contractor }}</td>
               <td>
-                {% if ticket.status == "open" %}
+                {% if ticket.status == "scheduled" %}
                 <span class="badge bg-primary"> Em aberto </span>
                 {% elif ticket.status == "on_travel" %}
                 <span class="badge bg-warning"> Em deslocamento </span>
