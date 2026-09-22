@@ -1,52 +1,33 @@
-import sqlite3
-from contextlib import contextmanager
+from sqlmodel import SQLModel, create_engine
 
-DB_NAME: str = "tickets.db"
-
-
-def get_connection():
-    conn = sqlite3.connect(DB_NAME)
-    conn.row_factory = sqlite3.Row
-    return conn
+from models.ticket_model import Ticket
 
 
-@contextmanager
-def get_db():
-    conn = get_connection()
-    try:
-        yield conn
-        conn.commit()
-    except Exception:
-        conn.rollback()
-        raise
-    finally:
-        conn.close()
+DATABASE_URL = "sqlite:///database.db"
+
+engine = create_engine(
+    DATABASE_URL,
+    echo=True,
+)
 
 
-def init_db():
-    ddl = """
-    CREATE TABLE IF NOT EXISTS tickets (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        
-        service_date TEXT NOT NULL,
-        contractor TEXT NOT NULL,
-        value REAL NOT NULL,
-        address TEXT NOT NULL,
-        client TEXT NOT NULL,
-        
-        start_travel TEXT,
+def init_db() -> None:
+    SQLModel.metadata.create_all(engine)
 
-        start_time TEXT,
 
-        protocol TEXT,
-        end_time TEXT,
+def verify_db_ddl() -> None:
+    table = SQLModel.metadata.tables["ticket"]
 
-        status TEXT NOT NULL,
-        
-        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT
-    );
-    """
-
-    with get_db() as conn:
-        conn.execute(ddl)
+    for column in table.columns:
+        print(
+            column.name,
+            "| nullable:",
+            column.nullable,
+            "| primary_key:",
+            column.primary_key,
+            "| type:",
+            column.type,
+            "| default:",
+            column.default,
+        )
+    return None

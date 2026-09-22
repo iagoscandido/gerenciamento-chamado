@@ -6,13 +6,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 
-from database.db import init_db
+from database.db import init_db, verify_db_ddl
 from routers.ticket_router import router as ticket_router
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     init_db()
+    verify_db_ddl()
     yield
 
 

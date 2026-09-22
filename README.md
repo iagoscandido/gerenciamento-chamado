@@ -57,3 +57,8 @@ debug htmx: https://raw.githubusercontent.com/bigskysoftware/htmx/v4.0.0/dist/sk
 | `start_time`   | `ON_TRAVEL`      | `start_time`, `status`   |
 | `finish`       | `ON_PROGRESS`    | `end_time`, `status`     |
 | `update`       | qualquer         | altera dados do Ticket   |
+
+Criação de Chamado informando Data e horário para atendimento, contratante, cliente final, valor, escopo
+Botão de registro de inicio de deslocamento (registro de horario)
+Botão de registro de chegada no local (registro de horario)
+Botão de finalização do chamado que irá direcionar para um formulario para preenchimento dos dados restantes: protocolo, resumo técnico e horario de encerramento
