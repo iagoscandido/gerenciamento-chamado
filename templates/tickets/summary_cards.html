@@ -1,0 +1,41 @@
+<section class="mb-4" aria-labelledby="summary-title">
+  <h2 id="summary-title" class="visually-hidden">Resumo dos tickets</h2>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <article class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-muted">Total de tickets</h3>
+
+          <p class="display-6 mb-0">{{ tickets | length }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <article class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-muted">Agendado</h3>
+
+          <p class="display-6 mb-0">
+            {{ tickets | selectattr("status", "equalto", "scheduled") | list |
+            length }}
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <article class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-muted">Finalizados</h3>
+
+          <p class="display-6 mb-0">
+            {{ tickets | selectattr("status", "equalto", "finished") | list |
+            length }}
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
