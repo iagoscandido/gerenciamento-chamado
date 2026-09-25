@@ -1,6 +1,9 @@
 from datetime import UTC, date, datetime, time
 from enum import StrEnum
+<<<<<<< HEAD
 from sqlalchemy import Enum
+=======
+>>>>>>> main
 
 from sqlmodel import Field, SQLModel
 
@@ -41,6 +44,7 @@ class Ticket(SQLModel, table=True):
 
     technical_summary: str | None = None
 
+<<<<<<< HEAD
     status: TicketStatus = Field(
         default=TicketStatus.SCHEDULED,
         sa_type=Enum(
@@ -48,10 +52,14 @@ class Ticket(SQLModel, table=True):
             values_callable=lambda enum: [item.value for item in enum],
         ),
     )
+=======
+    status: TicketStatus = Field(default=TicketStatus.SCHEDULED)
+>>>>>>> main
 
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
     updated_at: datetime | None = None
+<<<<<<< HEAD
 
 
 class TicketCreate(SQLModel):
@@ -64,3 +72,5 @@ class TicketCreate(SQLModel):
 
     scope: str
     value: float
+=======
+>>>>>>> main

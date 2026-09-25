@@ -268,6 +268,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
+<<<<<<< HEAD
     { name = "python-telegram-bot" },
     { name = "sqlmodel" },
 ]
@@ -275,11 +276,15 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
+=======
+    { name = "sqlmodel" },
+>>>>>>> main
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.141.1" },
+<<<<<<< HEAD
     { name = "python-telegram-bot", specifier = ">=22.8" },
     { name = "sqlmodel", specifier = ">=0.0.45" },
 ]
@@ -287,6 +292,11 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.1.1" }]
 
+=======
+    { name = "sqlmodel", specifier = ">=0.0.45" },
+]
+
+>>>>>>> main
 [[package]]
 name = "greenlet"
 version = "3.5.6"

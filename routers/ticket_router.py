@@ -5,8 +5,13 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
+<<<<<<< HEAD
 from database.db import get_session
 from models.ticket_model import Ticket, TicketCreate, TicketStatus
+=======
+from models.ticket_model import Ticket, TicketStatus
+
+>>>>>>> main
 
 templates = Jinja2Templates("templates")
 
@@ -19,6 +24,7 @@ router = APIRouter(
 @router.get("/")
 def ticket_index(request: Request):
     return templates.TemplateResponse(request, "tickets/index.html", {})
+<<<<<<< HEAD
 
 
 @router.get("/{ticket_id}", response_model=Ticket)
@@ -53,3 +59,5 @@ def create_ticket(
     session.refresh(db_ticket)
 
     return db_ticket
+=======
+>>>>>>> main

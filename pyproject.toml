@@ -4,7 +4,10 @@ version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.141.1",
+<<<<<<< HEAD
     "python-telegram-bot>=22.8",
+=======
+>>>>>>> main
     "sqlmodel>=0.0.45",
 ]
 
