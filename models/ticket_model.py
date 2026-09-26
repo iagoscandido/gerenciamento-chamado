@@ -37,24 +37,20 @@ class Ticket(SQLModel, table=True):
 
     travel_start_time: time | None = None
     service_start_time: time | None = None
-    service_finish_time: time | None = None
 
+    service_finish_time: time | None = None
     technical_summary: str | None = None
 
+    status: TicketStatus = Field(
+        default=TicketStatus.SCHEDULED,
+        sa_type=Enum(
+            TicketStatus,
+            values_callable=lambda enum: [item.value for item in enum],
+        ),
+    )
 
-status: TicketStatus = Field(
-    default=TicketStatus.SCHEDULED,
-    sa_type=Enum(
-        TicketStatus,
-        values_callable=lambda enum: [item.value for item in enum],
-    ),
-)
-
-status: TicketStatus = Field(default=TicketStatus.SCHEDULED)
-
-created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
-
-updated_at: datetime | None = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime | None = None
 
 
 class TicketCreate(SQLModel):
@@ -65,5 +61,5 @@ class TicketCreate(SQLModel):
     client: str
     address: str
 
-    scope: str
+    description: str
     value: float
