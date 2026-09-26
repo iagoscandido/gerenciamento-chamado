@@ -32,7 +32,7 @@ class Ticket(SQLModel, table=True):
     client: str
     address: str
 
-    scope: str
+    description: str
     value: float
 
     travel_start_time: time | None = None

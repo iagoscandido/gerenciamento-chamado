@@ -21,11 +21,11 @@ def ticket_index(request: Request):
     return templates.TemplateResponse(request, "tickets/index.html", {})
 
 
-@router.get("/mini-app/ticket", response_class=HTMLResponse)
+@router.get("/create", response_class=HTMLResponse)
 def ticket_mini_app(request: Request):
     return templates.TemplateResponse(
         request=request,
-        name="mini_app/ticket.html",
+        name="tickets/create_ticket.html",
         context={},
     )
 
