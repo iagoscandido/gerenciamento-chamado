@@ -47,9 +47,7 @@ async def receive_service_date(
     except ValueError:
         print("DEBUG: data inválida")
 
-        await update.message.reply_text(
-            "Data inválida. Informe no formato DD/MM/AAAA:"
-        )
+        await update.message.reply_text("Data inválida. Informe no formato DD/MM/AAAA:")
 
         return SERVICE_DATE
 
@@ -89,9 +87,7 @@ async def receive_service_time(
     except ValueError:
         print("DEBUG: horário inválido")
 
-        await update.message.reply_text(
-            "Horário inválido. Informe no formato HH:MM:"
-        )
+        await update.message.reply_text("Horário inválido. Informe no formato HH:MM:")
 
         return SERVICE_TIME
 
@@ -102,9 +98,7 @@ async def receive_service_time(
         context.user_data["service_time"],
     )
 
-    await update.message.reply_text(
-        "Informe o contratante:"
-    )
+    await update.message.reply_text("Informe o contratante:")
 
     print(f"DEBUG: retornando estado {CONTRACTOR}")
 
@@ -120,9 +114,7 @@ async def receive_contractor(
 
     context.user_data["contractor"] = contractor
 
-    await update.message.reply_text(
-        "Contratante registrado."
-    )
+    await update.message.reply_text("Contratante registrado.")
 
     return CLIENT
 
@@ -135,8 +127,6 @@ async def receive_client(
 
     context.user_data["client"] = client
 
-    await update.message.reply_text(
-        "Cliente registrado."
-    )
+    await update.message.reply_text("Cliente registrado.")
 
     return ConversationHandler.END
