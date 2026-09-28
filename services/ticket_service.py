@@ -14,8 +14,7 @@ class TicketService:
         ticket = self._get_ticket(ticket_id)
 
         if ticket.status != TicketStatus.SCHEDULED:
-            raise ValueError(
-                "Ticket cannot start travel from its current status")
+            raise ValueError("Ticket cannot start travel from its current status")
 
         now = datetime.now(UTC)
 
@@ -35,8 +34,7 @@ class TicketService:
             TicketStatus.SCHEDULED,
             TicketStatus.ON_TRAVEL,
         }:
-            raise ValueError(
-                "Ticket cannot be canceled from its current status")
+            raise ValueError("Ticket cannot be canceled from its current status")
 
         now = datetime.now(UTC)
 
@@ -92,8 +90,7 @@ class TicketService:
         return db_ticket
 
     def get_summary(self) -> dict[str, int]:
-        total = self.session.exec(
-            select(func.count()).select_from(Ticket)).one()
+        total = self.session.exec(select(func.count()).select_from(Ticket)).one()
 
         scheduled = self.session.exec(
             select(func.count())
