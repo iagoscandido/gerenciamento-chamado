@@ -69,6 +69,20 @@ def update(ticket_id: int, ticket: TicketUpdate, session: SessionDep):
     return updated_ticket
 
 
+@router.delete("/{ticket_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_ticket(
+    ticket_id: int,
+    session: SessionDep,
+):
+    deleted = TicketService(session).delete(ticket_id)
+
+    if not deleted:
+        raise HTTPException(
+            status_code=404,
+            detail="Ticket não encontrado",
+        )
+
+
 @router.get("/{ticket_id}", response_model=Ticket)
 def get_by_id(
     ticket_id: int,

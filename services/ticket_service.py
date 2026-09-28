@@ -136,6 +136,17 @@ class TicketService:
 
         return db_ticket
 
+    def delete(self, ticket_id: int) -> bool:
+        ticket = self.get_by_id(ticket_id)
+
+        if ticket is None:
+            return False
+
+        self.session.delete(ticket)
+        self.session.commit()
+
+        return True
+
     def _get_ticket(self, ticket_id: int) -> Ticket:
         ticket = self.session.get(Ticket, ticket_id)
 
