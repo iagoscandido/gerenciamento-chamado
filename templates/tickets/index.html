@@ -8,80 +8,76 @@ content %}
   </header>
 
   {% include "tickets/summary_cards.html" %} {% include "tickets/search.html" %}
-      {% if tickets %}
-      <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle mb-0">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Cliente</th>
-              <th scope="col">Data</th>
-              <th scope="col">Contratante</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
+  {% if tickets %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Data</th>
+          <th scope="col">Contratante</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
 
-          <tbody>
-            {% for ticket in tickets %}
-            <tr
-              hx-action="/tickets/{{ ticket.id }}/detail"
-              hx-method="GET"
-              hx-target="#ticket-detail"
-              hx-swap="innerHTML"
-              role="button"
-              tabindex="0"
-              style="cursor: pointer"
-            >
-              <td>{{ ticket.client }}</td>
-              <td>{{ ticket.service_date }}</td>
-              <td>{{ ticket.contractor }}</td>
-              <td>
-                {% if ticket.status == "scheduled" %}
-                <span class="badge bg-primary"> Em aberto </span>
-                {% elif ticket.status == "on_travel" %}
-                <span class="badge bg-warning"> Em deslocamento </span>
-                {% elif ticket.status == "on_progress" %}
-                <span class="badge bg-info"> Em atendimento </span>
-                {% elif ticket.status == "finished" %}
-                <span class="badge bg-success"> Finalizado </span>
-                {% else %}
-                <span class="badge bg-secondary"> {{ ticket.status }} </span>
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+      <tbody>
+        {% for ticket in tickets %}
+        <tr
+          hx-action="/tickets/{{ ticket.id }}/detail"
+          hx-method="GET"
+          hx-target="#ticket-detail"
+          hx-swap="innerHTML"
+          role="button"
+          tabindex="0"
+          style="cursor: pointer"
+        >
+          <td>{{ ticket.client }}</td>
+          <td>{{ ticket.service_date }}</td>
+          <td>{{ ticket.contractor }}</td>
+          <td>
+            {% if ticket.status == "scheduled" %}
+            <span class="badge bg-primary"> Em aberto </span>
+            {% elif ticket.status == "on_travel" %}
+            <span class="badge bg-warning"> Em deslocamento </span>
+            {% elif ticket.status == "on_progress" %}
+            <span class="badge bg-info"> Em atendimento </span>
+            {% elif ticket.status == "finished" %}
+            <span class="badge bg-success"> Finalizado </span>
+            {% else %}
+            <span class="badge bg-secondary"> {{ ticket.status }} </span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-      {% else %}
+  {% else %}
 
-      <div class="text-center py-5">
-        <p class="text-muted mb-3">Nenhum ticket cadastrado.</p>
+  <div class="text-center py-5">
+    <p class="text-muted mb-3">Nenhum ticket cadastrado.</p>
 
-        <a href="/tickets/create" class="btn btn-primary">
-          Criar primeiro ticket
-        </a>
-      </div>
+    <a href="#" class="btn btn-primary"> Criar primeiro ticket </a>
+  </div>
 
-      {% endif %}
-    </div>
-  </section>
+  {% endif %}
+</div>
 
-  <div class="container">
-    <section
+<div class="container">
+  <section
     id="ticket-detail"
     class="card shadow-sm"
     aria-labelledby="ticket-detail-title"
-    >
+  >
     <div class="card-body">
       <h2 id="ticket-detail-title" class="h5">Detalhes do ticket</h2>
-      
+
       <p class="text-muted mb-0">
         Selecione um ticket na tabela para visualizar seus detalhes.
       </p>
     </div>
   </section>
-</div>
 </div>
 
 {% endblock %}
