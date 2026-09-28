@@ -1,3 +1,4 @@
+from models.ticket_model import TicketUpdate
 from services.ticket_service import TicketService
 from typing import Annotated
 
@@ -53,6 +54,19 @@ def create(
     create_ticket = TicketService(session).create(ticket)
 
     return create_ticket
+
+
+@router.patch("/{ticket_id}", response_model=Ticket)
+def update(ticket_id: int, ticket: TicketUpdate, session: SessionDep):
+    updated_ticket = TicketService(session).update(ticket_id, ticket)
+
+    if updated_ticket is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Ticket não encontrado",
+        )
+
+    return updated_ticket
 
 
 @router.get("/{ticket_id}", response_model=Ticket)
