@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+from models.ticket_model import TicketFinish
 from datetime import UTC, datetime
 
 from sqlalchemy import func
@@ -51,19 +53,20 @@ class TicketService:
 
         return ticket
 
-    def finish_service(self, ticket_id: int) -> Ticket:
-        ticket = self._get_ticket(ticket_id)
+    def finish_service(self, ticket_id: int, ticket: TicketFinish) -> Ticket:
+        ticket_db = self._get_ticket(ticket_id)
 
         now = datetime.now(UTC)
 
-        ticket.service_finish_time = now.time()
-        ticket.status = TicketStatus.FINISHED
-        ticket.updated_at = now
+        ticket_db.technical_summary = ticket.technical_summary
+        ticket_db.service_finish_time = now.time()
+        ticket_db.status = TicketStatus.FINISHED
+        ticket_db.updated_at = now
 
         self.session.commit()
-        self.session.refresh(ticket)
+        self.session.refresh(ticket_db)
 
-        return ticket
+        return ticket_db
 
     def create(self, ticket: TicketCreate) -> Ticket:
         db_ticket = Ticket.model_validate(ticket)
@@ -75,7 +78,8 @@ class TicketService:
         return db_ticket
 
     def get_summary(self) -> dict[str, int]:
-        total = self.session.exec(select(func.count()).select_from(Ticket)).one()
+        total = self.session.exec(
+            select(func.count()).select_from(Ticket)).one()
 
         scheduled = self.session.exec(
             select(func.count())
@@ -98,7 +102,7 @@ class TicketService:
     def get_by_id(self, ticket_id: int) -> Ticket | None:
         return self.session.get(Ticket, ticket_id)
 
-    def get_all(self) -> list[Ticket]:
+    def get_all(self) -> Sequence[Ticket]:
         return self.session.exec(select(Ticket)).all()
 
     def update(self, ticket_id: int, ticket: TicketUpdate) -> Ticket | None:
