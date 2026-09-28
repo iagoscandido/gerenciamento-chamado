@@ -14,10 +14,6 @@ class TicketService:
     def start_travel(self, ticket_id: int) -> Ticket:
         ticket = self._get_ticket(ticket_id)
 
-        if ticket.status != TicketStatus.SCHEDULED:
-            raise ValueError(
-                "Ticket cannot start travel from its current status")
-
         now = datetime.now(UTC)
 
         ticket.travel_start_time = now.time()
@@ -148,6 +144,10 @@ class TicketService:
         return True
 
     def _get_ticket(self, ticket_id: int) -> Ticket:
+        """
+        Try to find and return a ticket by its id.
+        if the given ticket does not exists, it raise an exception
+        """
         ticket = self.session.get(Ticket, ticket_id)
 
         if ticket is None:
