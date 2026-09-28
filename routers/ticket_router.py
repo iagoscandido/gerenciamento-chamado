@@ -74,7 +74,7 @@ def start_travel(ticket_id: int, session: SessionDep):
     return TicketService(session).start_travel(ticket_id)
 
 
-@router.patch("/{ticket_id}/start_servie", response_model=Ticket)
+@router.patch("/{ticket_id}/start_service", response_model=Ticket)
 def start_service(ticket_id: int, session: SessionDep):
     return TicketService(session).start_service(ticket_id)
 
@@ -84,7 +84,7 @@ def finish_service(ticket_id: int, session: SessionDep):
     return TicketService(session).finish_service(ticket_id)
 
 
-@router.patch("/{ticket_id}/cancel", response_model=Ticket)
+@router.patch("/{ticket_id}/cancel_service", response_model=Ticket)
 def cancel_service(ticket_id: int, session: SessionDep):
     return TicketService(session).cancel_service(ticket_id)
 
