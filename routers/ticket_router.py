@@ -33,20 +33,6 @@ def get_all_tickets(session: SessionDep):
     return tickets
 
 
-@router.get("/summary", response_class=HTMLResponse)
-def ticket_summary(
-    request: Request,
-    session: SessionDep,
-):
-    summary = TicketService(session).get_summary()
-
-    return templates.TemplateResponse(
-        request=request,
-        name="tickets/summary.html",
-        context={"summary": summary},
-    )
-
-
 @router.post("/", response_model=Ticket, status_code=status.HTTP_201_CREATED)
 def create(
     ticket: TicketCreate,
