@@ -69,6 +69,11 @@ def update(ticket_id: int, ticket: TicketUpdate, session: SessionDep):
     return updated_ticket
 
 
+@router.patch("/{ticket_id}/start_travel", response_model=Ticket)
+def start_travel(ticket_id: int, session: SessionDep):
+    return TicketService(session).start_travel(ticket_id)
+
+
 @router.delete("/{ticket_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_ticket(
     ticket_id: int,
