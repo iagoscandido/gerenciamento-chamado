@@ -1,4 +1,4 @@
-from sqlmodel import Session, SQLModel, create_engine, select
+from sqlmodel import Session, SQLModel, create_engine
 
 DATABASE_URL: str = "sqlite:///database.db"
 
