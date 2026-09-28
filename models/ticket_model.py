@@ -64,3 +64,7 @@ class TicketUpdate(SQLModel):
     address: str | None = None
     description: str | None = None
     value: float | None = None
+
+
+class TicketFinish(SQLModel):
+    technical_summary: str

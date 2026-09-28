@@ -1,3 +1,4 @@
+from models.ticket_model import TicketFinish
 from models.ticket_model import TicketUpdate
 from services.ticket_service import TicketService
 from typing import Annotated
@@ -80,8 +81,8 @@ def start_service(ticket_id: int, session: SessionDep):
 
 
 @router.patch("/{ticket_id}/finish_service", response_model=Ticket)
-def finish_service(ticket_id: int, session: SessionDep):
-    return TicketService(session).finish_service(ticket_id)
+def finish_service(ticket_id: int, ticket: TicketFinish, session: SessionDep):
+    return TicketService(session).finish_service(ticket_id, ticket)
 
 
 @router.patch("/{ticket_id}/cancel_service", response_model=Ticket)
