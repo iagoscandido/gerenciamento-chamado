@@ -54,3 +54,13 @@ class TicketCreate(SQLModel):
 
     description: str
     value: float
+
+
+class TicketUpdate(SQLModel):
+    service_date: date | None = None
+    service_time: time | None = None
+    contractor: str | None = None
+    client: str | None = None
+    address: str | None = None
+    description: str | None = None
+    value: float | None = None
