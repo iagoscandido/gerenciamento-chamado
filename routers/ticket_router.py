@@ -74,6 +74,21 @@ def start_travel(ticket_id: int, session: SessionDep):
     return TicketService(session).start_travel(ticket_id)
 
 
+@router.patch("/{ticket_id}/start_servie", response_model=Ticket)
+def start_service(ticket_id: int, session: SessionDep):
+    return TicketService(session).start_service(ticket_id)
+
+
+@router.patch("/{ticket_id}/finish_service", response_model=Ticket)
+def finish_service(ticket_id: int, session: SessionDep):
+    return TicketService(session).finish_service(ticket_id)
+
+
+@router.patch("/{ticket_id}/cancel", response_model=Ticket)
+def cancel_service(ticket_id: int, session: SessionDep):
+    return TicketService(session).cancel_service(ticket_id)
+
+
 @router.delete("/{ticket_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_ticket(
     ticket_id: int,
