@@ -1,6 +1,7 @@
 from datetime import UTC, datetime
 
-from sqlmodel import Session
+from sqlalchemy import func
+from sqlmodel import Session, select
 
 from models.ticket_model import Ticket, TicketCreate, TicketStatus
 
@@ -13,7 +14,8 @@ class TicketService:
         ticket = self._get_ticket(ticket_id)
 
         if ticket.status != TicketStatus.SCHEDULED:
-            raise ValueError("Ticket cannot start travel from its current status")
+            raise ValueError(
+                "Ticket cannot start travel from its current status")
 
         now = datetime.now(UTC)
 
@@ -33,7 +35,8 @@ class TicketService:
             TicketStatus.SCHEDULED,
             TicketStatus.ON_TRAVEL,
         }:
-            raise ValueError("Ticket cannot be canceled from its current status")
+            raise ValueError(
+                "Ticket cannot be canceled from its current status")
 
         now = datetime.now(UTC)
 
@@ -87,6 +90,34 @@ class TicketService:
         self.session.refresh(db_ticket)
 
         return db_ticket
+
+    def get_summary(self) -> dict[str, int]:
+        total = self.session.exec(
+            select(func.count()).select_from(Ticket)).one()
+
+        scheduled = self.session.exec(
+            select(func.count())
+            .select_from(Ticket)
+            .where(Ticket.status == TicketStatus.SCHEDULED)
+        ).one()
+
+        finished = self.session.exec(
+            select(func.count())
+            .select_from(Ticket)
+            .where(Ticket.status == TicketStatus.FINISHED)
+        ).one()
+
+        return {
+            "total": total,
+            "scheduled": scheduled,
+            "finished": finished,
+        }
+
+    def get_by_id(self, ticket_id: int) -> Ticket | None:
+        return self.session.get(Ticket, ticket_id)
+
+    def get_all(self) -> list[Ticket]:
+        return self.session.exec(select(Ticket)).all()
 
     def _get_ticket(self, ticket_id: int) -> Ticket:
         ticket = self.session.get(Ticket, ticket_id)

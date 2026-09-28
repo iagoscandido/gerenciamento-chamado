@@ -13,15 +13,6 @@ class TicketStatus(StrEnum):
     CANCELED = "canceled"
 
 
-# 1. identificação
-# 2. agendamento
-# 3. envolvidos/local
-# 4. serviço/valor
-# 5. execução
-# 6. estado
-# 7. auditoria
-
-
 class Ticket(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
 
