@@ -94,8 +94,9 @@ def delete_ticket(
         )
 
 
-@router.get("/{ticket_id}", response_model=Ticket)
+@router.get("/{ticket_id}")
 def get_by_id(
+    request: Request,
     ticket_id: int,
     session: SessionDep,
 ):
@@ -107,4 +108,4 @@ def get_by_id(
             detail="Ticket não encontrado",
         )
 
-    return ticket
+    return templates.TemplateResponse(request, "tickets/ticket.html", {"ticket": ticket})

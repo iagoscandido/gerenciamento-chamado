@@ -77,18 +77,28 @@ content %}
 
       <tbody>
         {% for ticket in tickets %}
-        <tr
-          hx-action="/tickets/{{ ticket.id }}/detail"
-          hx-method="GET"
-          hx-target="#ticket-detail"
-          hx-swap="innerHTML"
-          role="button"
-          tabindex="0"
-          style="cursor: pointer"
-        >
-          <td>{{ ticket.client }}</td>
-          <td>{{ ticket.service_date }}</td>
-          <td>{{ ticket.contractor }}</td>
+        <tr style="cursor: pointer">
+          <td>
+            <a
+              href="/tickets/{{ ticket.id }}"
+              class="d-block text-decoration-none text-reset"
+              >{{ ticket.client }}</a
+            >
+          </td>
+          <td>
+            <a
+              href="/tickets/{{ ticket.id }}"
+              class="d-block text-decoration-none text-reset"
+              >{{ ticket.service_date }}</a
+            >
+          </td>
+          <td>
+            <a
+              href="/tickets/{{ ticket.id }}"
+              class="d-block text-decoration-none text-reset"
+              >{{ ticket.contractor }}</a
+            >
+          </td>
           <td>
             {% if ticket.status == "scheduled" %}
             <span class="badge bg-primary"> Em aberto </span>
@@ -105,6 +115,7 @@ content %}
             {% endif %}
           </td>
         </tr>
+
         {% endfor %}
       </tbody>
     </table>
@@ -119,22 +130,6 @@ content %}
   </div>
 
   {% endif %}
-</div>
-
-<div class="container">
-  <section
-    id="ticket-detail"
-    class="card shadow-sm"
-    aria-labelledby="ticket-detail-title"
-  >
-    <div class="card-body">
-      <h2 id="ticket-detail-title" class="h5">Detalhes do ticket</h2>
-
-      <p class="text-muted mb-0">
-        Selecione um ticket na tabela para visualizar seus detalhes.
-      </p>
-    </div>
-  </section>
 </div>
 
 {% endblock %}
