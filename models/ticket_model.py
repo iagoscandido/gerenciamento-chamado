@@ -24,6 +24,7 @@ class Ticket(SQLModel, table=True):
     address: str
 
     description: str
+    # TODO: change to Decimal later
     value: float
 
     travel_start_time: time | None = None
