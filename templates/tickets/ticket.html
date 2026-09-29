@@ -12,33 +12,7 @@
         <h2 class="h4 mb-0">{{ ticket.client }}</h2>
       </div>
 
-      <div>
-        {% if ticket.status == "scheduled" %}
-
-        <span class="badge bg-primary">Em aberto</span>
-
-        {% elif ticket.status == "on_travel" %}
-
-        <span class="badge bg-warning text-dark">Em deslocamento</span>
-
-        {% elif ticket.status == "in_progress" %}
-
-        <span class="badge bg-info text-dark">Em atendimento</span>
-
-        {% elif ticket.status == "finished" %}
-
-        <span class="badge bg-success">Finalizado</span>
-
-        {% elif ticket.status == "canceled" %}
-
-        <span class="badge bg-danger">Cancelado</span>
-
-        {% else %}
-
-        <span class="badge bg-secondary">{{ ticket.status }}</span>
-
-        {% endif %}
-      </div>
+      <div>{% include "ticket/ticket_status_badge.html" %}</div>
     </div>
 
     <div class="row g-4">

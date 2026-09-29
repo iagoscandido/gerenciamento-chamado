@@ -1,0 +1,13 @@
+{% if ticket.status == "scheduled" %}
+<span class="badge bg-primary"> Em aberto </span>
+{% elif ticket.status == "on_travel" %}
+<span class="badge bg-warning"> Em deslocamento </span>
+{% elif ticket.status == "in_progress" %}
+<span class="badge bg-info"> Em atendimento </span>
+{% elif ticket.status == "finished" %}
+<span class="badge bg-success"> Finalizado </span>
+{% elif ticket.status == "canceled" %}
+<span class="badge bg-danger"> Cancelado </span>
+{% else %}
+<span class="badge bg-secondary"> {{ ticket.status }} </span>
+{% endif %}
