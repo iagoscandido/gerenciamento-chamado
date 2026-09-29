@@ -1,6 +1,3 @@
-from models.ticket_model import TicketFinish
-from models.ticket_model import TicketUpdate
-from services.ticket_service import TicketService
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, Response, status
@@ -9,7 +6,8 @@ from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
 from database.db import get_session
-from models.ticket_model import Ticket, TicketCreate
+from models.ticket_model import Ticket, TicketCreate, TicketFinish, TicketUpdate
+from services.ticket_service import TicketService
 
 templates = Jinja2Templates("templates")
 
@@ -22,8 +20,14 @@ SessionDep = Annotated[Session, Depends(get_session)]
 
 
 @router.get("/")
-def ticket_index(request: Request):
-    return templates.TemplateResponse(request, "tickets/index.html", {})
+def ticket_index(request: Request, session: SessionDep):
+    service = TicketService(session)
+    tickets = service.get_all()
+    summary = service.get_summary()
+
+    return templates.TemplateResponse(
+        request, "tickets/index.html", {"tickets": tickets, "summary": summary}
+    )
 
 
 @router.get("/all")

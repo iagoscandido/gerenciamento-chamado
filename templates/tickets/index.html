@@ -7,8 +7,42 @@ content %}
     <p class="text-muted mb-0">Gerenciamento dos atendimentos técnicos.</p>
   </header>
 
-  {% include "tickets/summary_cards.html" %} {% include "tickets/search.html" %}
-  {% if tickets %}
+  <section class="mb-4" aria-labelledby="summary-title">
+    <h2 id="summary-title" class="visually-hidden">Resumo dos tickets</h2>
+
+    <div class="row g-3">
+      <div class="col-12 col-md-4">
+        <article class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="h6 text-body-secondary mb-1">Total de tickets</h3>
+
+            <p class="fs-2 fw-semibold mb-0">{{ summary.total }}</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <article class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="h6 text-body-secondary mb-1">Agendados</h3>
+
+            <p class="fs-2 fw-semibold mb-0">{{ summary.scheduled }}</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <article class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="h6 text-body-secondary mb-1">Finalizados</h3>
+
+            <p class="fs-2 fw-semibold mb-0">{{ summary.finished }}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  {% include "tickets/search.html" %} {% if tickets %}
   <div class="table-responsive">
     <table class="table table-striped table-hover align-middle mb-0">
       <thead class="table-dark">
@@ -39,10 +73,12 @@ content %}
             <span class="badge bg-primary"> Em aberto </span>
             {% elif ticket.status == "on_travel" %}
             <span class="badge bg-warning"> Em deslocamento </span>
-            {% elif ticket.status == "on_progress" %}
+            {% elif ticket.status == "in_progress" %}
             <span class="badge bg-info"> Em atendimento </span>
             {% elif ticket.status == "finished" %}
             <span class="badge bg-success"> Finalizado </span>
+            {% elif ticket.status == "canceled" %}
+            <span class="badge bg-danger"> Cancelado </span>
             {% else %}
             <span class="badge bg-secondary"> {{ ticket.status }} </span>
             {% endif %}

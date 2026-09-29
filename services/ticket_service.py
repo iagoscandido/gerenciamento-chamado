@@ -78,8 +78,7 @@ class TicketService:
         return db_ticket
 
     def get_summary(self) -> dict[str, int]:
-        total = self.session.exec(
-            select(func.count()).select_from(Ticket)).one()
+        total = self.session.exec(select(func.count()).select_from(Ticket)).one()
 
         scheduled = self.session.exec(
             select(func.count())
