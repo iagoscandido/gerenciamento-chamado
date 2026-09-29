@@ -8,16 +8,30 @@
     </div>
 
     <div>
-      {% if ticket.status == "open" %}
-      <span class="badge bg-primary"> Em aberto </span>
+      {% if ticket.status == "scheduled" %}
+
+      <span class="badge bg-primary">Em aberto</span>
+
       {% elif ticket.status == "on_travel" %}
-      <span class="badge bg-warning text-dark"> Em deslocamento </span>
-      {% elif ticket.status == "on_progress" %}
-      <span class="badge bg-info text-dark"> Em atendimento </span>
+
+      <span class="badge bg-warning text-dark">Em deslocamento</span>
+
+      {% elif ticket.status == "in_progress" %}
+
+      <span class="badge bg-info text-dark">Em atendimento</span>
+
       {% elif ticket.status == "finished" %}
-      <span class="badge bg-success"> Finalizado </span>
+
+      <span class="badge bg-success">Finalizado</span>
+
+      {% elif ticket.status == "canceled" %}
+
+      <span class="badge bg-danger">Cancelado</span>
+
       {% else %}
-      <span class="badge bg-secondary"> {{ ticket.status }} </span>
+
+      <span class="badge bg-secondary">{{ ticket.status }}</span>
+
       {% endif %}
     </div>
   </div>
@@ -27,9 +41,13 @@
       <h3 id="service-data-title" class="h6 border-bottom pb-2 mb-3">
         Dados do atendimento
       </h3>
+
       <dl class="row mb-0">
         <dt class="col-sm-5 text-muted">Data</dt>
         <dd class="col-sm-7">{{ ticket.service_date }}</dd>
+
+        <dt class="col-sm-5 text-muted">Horário</dt>
+        <dd class="col-sm-7">{{ ticket.service_time }}</dd>
 
         <dt class="col-sm-5 text-muted">Contratante</dt>
         <dd class="col-sm-7">{{ ticket.contractor }}</dd>
@@ -53,34 +71,60 @@
       <dl class="row mb-0">
         <dt class="col-sm-5 text-muted">Início deslocamento</dt>
         <dd class="col-sm-7">
-          {% if ticket.start_travel %} {{ ticket.start_travel }} {% else %}
-          <span class="text-muted"> Não iniciado </span>
+          {% if ticket.travel_start_time %} {{ ticket.travel_start_time }} {%
+          else %}
+
+          <span class="text-muted">Não iniciado</span>
+
           {% endif %}
         </dd>
 
         <dt class="col-sm-5 text-muted">Início atendimento</dt>
         <dd class="col-sm-7">
-          {% if ticket.start_time %} {{ ticket.start_time }} {% else %}
-          <span class="text-muted"> Não iniciado </span>
+          {% if ticket.service_start_time %} {{ ticket.service_start_time }} {%
+          else %}
+
+          <span class="text-muted">Não iniciado</span>
+
           {% endif %}
         </dd>
 
         <dt class="col-sm-5 text-muted">Fim atendimento</dt>
         <dd class="col-sm-7">
-          {% if ticket.end_time %} {{ ticket.end_time }} {% else %}
-          <span class="text-muted"> Não finalizado </span>
-          {% endif %}
-        </dd>
+          {% if ticket.service_finish_time %} {{ ticket.service_finish_time }}
+          {% else %}
 
-        <dt class="col-sm-5 text-muted">Protocolo</dt>
-        <dd class="col-sm-7">
-          {% if ticket.protocol %} {{ ticket.protocol }} {% else %}
-          <span class="text-muted"> Não informado </span>
+          <span class="text-muted">Não finalizado</span>
+
           {% endif %}
         </dd>
       </dl>
     </section>
   </div>
+
+  <hr class="my-4" />
+
+  <section aria-labelledby="description-title">
+    <h3 id="description-title" class="h6 border-bottom pb-2 mb-3">
+      Descrição do atendimento
+    </h3>
+
+    <p class="mb-0">{{ ticket.description }}</p>
+  </section>
+
+  {% if ticket.technical_summary %}
+
+  <hr class="my-4" />
+
+  <section aria-labelledby="summary-title">
+    <h3 id="summary-title" class="h6 border-bottom pb-2 mb-3">
+      Resumo técnico
+    </h3>
+
+    <p class="mb-0">{{ ticket.technical_summary }}</p>
+  </section>
+
+  {% endif %}
 
   <hr class="my-4" />
 
@@ -91,12 +135,16 @@
 
     <dl class="row mb-0">
       <dt class="col-sm-3 text-muted">Criado em</dt>
+
       <dd class="col-sm-9">{{ ticket.created_at }}</dd>
 
       <dt class="col-sm-3 text-muted">Atualizado em</dt>
+
       <dd class="col-sm-9">
         {% if ticket.updated_at %} {{ ticket.updated_at }} {% else %}
-        <span class="text-muted"> Nunca atualizado </span>
+
+        <span class="text-muted">Nunca atualizado</span>
+
         {% endif %}
       </dd>
     </dl>
