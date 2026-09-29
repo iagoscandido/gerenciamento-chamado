@@ -37,14 +37,20 @@ def get_all_tickets(session: SessionDep):
     return tickets
 
 
-@router.post("/", response_model=Ticket, status_code=status.HTTP_201_CREATED)
-def create(
-    ticket: TicketCreate,
-    session: SessionDep,
-):
-    create_ticket = TicketService(session).create(ticket)
+@router.get("/create", response_class=HTMLResponse)
+def get_create_ticket(request: Request):
+    return templates.TemplateResponse(request, "tickets/create_ticket.html")
 
-    return create_ticket
+
+@router.post("/", response_class=HTMLResponse)
+def create(ticket: Annotated[TicketCreate, Form()], session: SessionDep):
+
+    TicketService(session).create(ticket)
+
+    return RedirectResponse(
+        url="/tickets",
+        status_code=status.HTTP_303_SEE_OTHER,
+    )
 
 
 @router.patch("/{ticket_id}", response_model=Ticket)
